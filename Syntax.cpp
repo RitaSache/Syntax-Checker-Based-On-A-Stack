@@ -15,3 +15,4 @@ char Syntax::opposite(char current) {
 	return opposite;
 
 }
+

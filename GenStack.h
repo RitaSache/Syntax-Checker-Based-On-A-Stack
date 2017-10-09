@@ -17,8 +17,8 @@ class GenStack {
 
 		int top; //index top to keep track of the top element in stack
 		int max;
-
-		T *myArray; //pointer that will act as a back in array, stack of chars. not initiallized, can be changed dynamically
+		T *myArray;
+		T *biggerArray; //pointer that will act as a back in array, stack of chars. not initiallized, can be changed dynamically
 		
 };
 
@@ -33,7 +33,8 @@ GenStack<T>::GenStack(int maxSize){
 template <class T>
 GenStack<T>::~GenStack() {
 	cout << "object deleted" << endl;
-	delete myArray; 
+	delete [] myArray; 
+	delete [] biggerArray;
 }
 
 template <class T>
@@ -41,6 +42,14 @@ void GenStack<T>::push(T data) {
 	if (!isFull()) {
 		myArray[++top] = data;
 	}
+	else {
+		max = max*2;
+		biggerArray = new T[max];
+		fill_n(biggerArray, max, 0);
+		top = -1;
+		myArray = biggerArray;
+	}
+
 }
 
 template <class T>
