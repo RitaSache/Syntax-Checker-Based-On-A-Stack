@@ -8,12 +8,9 @@ using namespace std;
 int main(int argc, char **argv) {
 
 int lineCounter = 0;
-char current;
 char opposite;
-
-GenStack<char> curly(10);
-GenStack<char> squared(10);
-GenStack<char> regular(10);
+Syntax c;
+GenStack<char> syntax(10);
 
 if (argc > 1) {
 	ifstream inputFile;
@@ -22,73 +19,38 @@ if (argc > 1) {
 	while (getline(inputFile,line)) {
 		lineCounter++;
 		for (int i = 0; i < line.size(); i++) {
-			if (line[i] == '(') {
-				regular.push(line[i]);
-				current = '(';
-				opposite = ')';
+			if (line[i] == '(' || line[i] == '{' || line[i] == '[') {
+				cout << "Line " << lineCounter << " push " << line[i] << endl;
+				syntax.push(line[i]);
+				opposite = c.opposite(line[i]);
 			}
-			if (line[i] == ')') {
-				if(regular.isEmpty()) {
-					cout << "Line " << lineCounter << ": extra )" << endl;
+			if (line[i] == ')' || line[i] == '}' || line[i] == ']') {
+				if(syntax.isEmpty()) {
+					cout << "Line " << lineCounter << ": extra " << line[i] << endl;
+					exit(0);
 				}
-				else if(current != '(') {
-					cout << "Line " << lineCounter << ": expected " << opposite << " and found )" << endl;
+				else if(line[i] != opposite) {
+					cout << "Line " << lineCounter << ": expected " << opposite << " and found " << line[i] << endl;
+					exit(0);
 				}
 				else {
-					regular.pop();
-				}
-
-			}
-			if (line[i] == '{') {
-				curly.push(line[i]);
-				current = '{';
-				opposite = '}';
-			}
-			if (line[i] == '}') {
-				if (curly.isEmpty()) {
-					cout << "Line " << lineCounter << ": extra }" << endl;
-				}
-				else if(current != '{') {
-					cout << "Line " << lineCounter << ": expected " << opposite << " and found }" << endl;
-				}
-				else {
-					curly.pop();
+					cout << "Line " << lineCounter << " pop " << opposite << endl;
+					syntax.pop();
+					opposite = c.opposite(syntax.peek());
 				}
 			}
-			if (line[i] == '[') {
-				squared.push(line[i]);
-				current = '[';
-				opposite = ']';
-			}
-			if (line[i] == ']') {
-				if(squared.isEmpty()) {
-					cout << "Line " << lineCounter << ": extra ]" << endl;	
-				}
-				else if(current != '[') {
-					cout << "Line " << lineCounter << ": expected " << opposite << " and found ]" << endl;
-				}
-				else {
-					squared.pop();
-				}
-			}
-			
 		}
 	}
 	inputFile.close();
-	if(!regular.isEmpty()) {
-		cout << "Reached the end of the file, missing )" << endl;
-	}
-	if(!curly.isEmpty()) {
-		cout << "Reached the end of the file, missing }" << endl; 
-	}
-	if(!squared.isEmpty()) {
-		cout << "Reached the end of the file, missing ]" << endl;
+	if(!syntax.isEmpty()) {
+		opposite = c.opposite(syntax.peek());
+		cout << "Reached the end of the file, missing " << opposite << endl;
 	}
 }
 	
 
-	for (int i = 0; i < regular.top; i++) { 
-			cout << regular.myArray[i];
+	for (int i = 0; i < syntax.top; i++) { 
+			cout << syntax.myArray[i];
 		}
 	cout << endl;
 	return 0;
