@@ -64,12 +64,18 @@ T GenStack<T>::pop(){
 	if(!isEmpty()){
 		return myArray[top--];
 	}
+	else {
+		return '\0';
+	}
 }
 //peek method that checks whether an array is empty and if not it returns the top element in the stack
 template <class T>
 T GenStack<T>::peek(){
 	if (!isEmpty()) {
 		return myArray[top];
+	}
+	else {
+		return '\0';
 	}
 }
 //checks whether the stack is full
