@@ -75,6 +75,7 @@ void checkSyntax(string fileName) {
 	if(!syntax.isEmpty()) {
 		opposite = c.opposite(syntax.peek());
 		cout << "Reached the end of the file, missing " << opposite << endl;
+		exit(0);
 	}
 	else {
 		cout << "delimeter syntax is correct, do you want to process another file? (yes),(no)" << endl;
