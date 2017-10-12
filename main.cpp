@@ -45,7 +45,6 @@ void checkSyntax(string fileName) {
 		lineCounter++;
 		for (int i = 0; i < line.size(); i++) {
 			if (line[i] == '(' || line[i] == '{' || line[i] == '[') {
-				cout << "Line " << lineCounter << " push " << line[i] << endl;
 				syntax.push(line[i]);
 				opposite = c.opposite(line[i]);
 			}
@@ -59,7 +58,6 @@ void checkSyntax(string fileName) {
 					exit(0);
 				}
 				else {
-					cout << "Line " << lineCounter << " pop " << opposite << endl;
 					syntax.pop();
 					opposite = c.opposite(syntax.peek());
 				}
@@ -67,11 +65,7 @@ void checkSyntax(string fileName) {
 		}
 	}
 	inputFile.close();
-	for (int i = 0; i < syntax.top; i++) { 
-			cout << syntax.myArray[i];
-		}
-	cout << endl;
-
+	
 	if(!syntax.isEmpty()) {
 		opposite = c.opposite(syntax.peek());
 		cout << "Reached the end of the file, missing " << opposite << endl;
