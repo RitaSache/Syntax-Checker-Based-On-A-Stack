@@ -1,12 +1,20 @@
+//Rita (Eteri) Sachechelashvili
+//1928162
+//sache100@mail.chapman.edu
+//CPSC-350-02
+//Assignment 3
+//purpose of this file is to serve as the main file for the program.
+
 #include <iostream>
 #include "GenStack.h"
 #include "Syntax.h"
 #include <fstream>
 
 using namespace std;
-
+//method checkSyntax accepts a file as an argument or an input, checks for missing or extra delimiters
+//prints status of the file and asks for another file
 void checkSyntax(string fileName);
-
+//main method calls for the checkSyntax method with the argument file
 int main(int argc, char **argv) {
 
 if (argc > 1) {
@@ -17,7 +25,7 @@ else {
 	cout << "Invalid input" << endl;
 }
 }
-
+//description on lines 14-15
 void checkSyntax(string fileName) {
 	string anotherFile;
 	int lineCounter = 0;
